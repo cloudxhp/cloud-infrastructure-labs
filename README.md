@@ -1,25 +1,29 @@
-# Cloud Engineer Transition Journey
+# Cloud Journey
 
-## About Me
-Career transition into Cloud Engineering and DevOps.
+## Overview
+This repository documents my transition into Cloud and Infrastructure Operations while building long-term Cloud Engineering and DevOps skills.
 
-Background in operations management, logistics, and systems coordination.
-Currently building hands-on skills in Linux, Git, AWS, and Cloud Infrastructure.
-
-## Current Learning Focus
-- Linux Fundamentals
+## Current Focus
+- Linux fundamentals
+- Networking fundamentals
 - Git & GitHub
-- AWS Cloud
-- Infrastructure Automation
+- AWS foundations
 
 ## Repository Structure
-linux/  → Linux practice and commands  
-aws/    → AWS learning notes  
-projects/ → Hands-on cloud projects  
-notes/  → Learning journal  
+
+```text
+notes/          -> technical notes
+projects/       -> hands-on projects
+linux/          -> Linux practice
+networking/     -> networking practice
+aws/            -> AWS learning
+```
+
+## Skills In Progress
+- Linux terminal usage
+- Git workflow
+- Networking basics
+- Documentation practices
 
 ## Goal
-Become a remote Cloud Engineer within 12–18 months through practical projects and consistent learning.
-
----
-Daily progress committed publicly.
+Build practical cloud infrastructure and operations skills through structured hands-on learning.
