@@ -1,4 +1,6 @@
-# Cloud Journey
+# cloud-infrastructure-labs
+
+Hands-on cloud infrastructure labs focused on Linux, networking, Git, GitHub, AWS, and systems operations.
 
 ## Overview
 This repository documents my transition into Cloud and Infrastructure Operations while building long-term Cloud Engineering and DevOps skills.
