@@ -2,49 +2,9 @@
 
 ## Project Overview
 
-This project demonstrates how to deploy, access, troubleshoot, and document a basic web server running on an AWS EC2 instance.
+This project demonstrates how to deploy, secure, test, monitor, and document a basic web server on AWS.
 
-The purpose of this project is to practice real cloud operations skills using AWS, Linux, networking, security groups, and monitoring concepts.
-
----
-
-## Project Goals
-
-* Launch and manage an EC2 instance
-* Connect to the server using SSH
-* Install and verify a web server
-* Configure Security Group access
-* Test HTTP connectivity
-* Use Linux troubleshooting commands
-* Review CloudWatch monitoring metrics
-* Document the infrastructure workflow
-
----
-
-## AWS Services Used
-
-* Amazon EC2
-* Security Groups
-* Amazon VPC
-* Internet Gateway
-* Route Tables
-* Amazon CloudWatch
-* Amazon S3
-* AWS CLI
-* IAM
-
----
-
-## Linux Skills Used
-
-* SSH access
-* Package installation
-* Service status checks
-* Port inspection
-* Network testing
-* Log review
-* File editing
-* Command-line documentation
+The final deployment runs on an EC2 instance inside a dedicated custom VPC public subnet, using a project-specific Security Group and CloudWatch monitoring.
 
 ---
 
@@ -55,133 +15,134 @@ Internet
    ↓
 Public IP Address
    ↓
-Security Group
+Security Group: project-web-sg
    ↓
-EC2 Instance
+Public Subnet: enterprise-public-subnet-1a
    ↓
-Web Server
+EC2 Instance: project-web-server
+   ↓
+Nginx Web Server
    ↓
 CloudWatch Monitoring
 ```
 
 ---
 
-## Key Concepts Practiced
+## AWS Services Used
 
-### EC2
-
-Amazon EC2 provides virtual servers in the cloud. In this project, EC2 was used to host a basic web server.
-
-### Security Groups
-
-Security Groups control inbound and outbound traffic. HTTP traffic requires port 80 to be open.
-
-### Public vs Private IP
-
-The public IP allows internet access to the instance. The private IP is used inside the AWS VPC network.
-
-### Web Server
-
-A web server listens on a network port and responds to HTTP requests.
-
-### CloudWatch
-
-CloudWatch provides monitoring metrics such as CPU utilization, network traffic, and instance health checks.
+* Amazon EC2
+* Amazon VPC
+* Public Subnet
+* Internet Gateway
+* Route Table
+* Security Groups
+* Amazon CloudWatch
+* AWS CLI
+* IAM
 
 ---
 
-## Troubleshooting Workflow
+## Final Project Infrastructure
 
-When testing web server access, the following troubleshooting process was used:
-
-```text
-Check EC2 instance state
-        ↓
-Check Security Group rules
-        ↓
-Check web server status
-        ↓
-Check listening ports
-        ↓
-Test localhost
-        ↓
-Test public IP
-        ↓
-Review CloudWatch metrics
-```
+| Item               | Value                       |
+| ------------------ | --------------------------- |
+| Instance Name      | project-web-server          |
+| Instance ID        | i-04350b2e41c8f8189         |
+| Instance Type      | t3.micro                    |
+| Public IP          | 32.196.229.203              |
+| Private IP         | 10.0.1.54                   |
+| VPC Name           | custom-enterprise-vpc       |
+| VPC CIDR           | 10.0.0.0/16                 |
+| Public Subnet      | enterprise-public-subnet-1a |
+| Public Subnet CIDR | 10.0.1.0/24                 |
+| Security Group     | project-web-sg              |
+| Web Server         | Nginx                       |
 
 ---
 
-## Commands Practiced
+## Security Group Rules
+
+| Rule | Port | Source            | Purpose               |
+| ---- | ---: | ----------------- | --------------------- |
+| SSH  |   22 | My public IP only | Secure administration |
+| HTTP |   80 | 0.0.0.0/0         | Public web access     |
+
+---
+
+## Skills Demonstrated
+
+* Launching EC2 instances
+* Deploying Linux-based web servers
+* Configuring Security Groups
+* Working with public and private IP addresses
+* Using a custom VPC and public subnet
+* Verifying Internet Gateway and route table behavior
+* Testing HTTP access with `curl`
+* Monitoring EC2 metrics with CloudWatch
+* Practicing AWS CLI workflows
+* Documenting cloud infrastructure clearly
+
+---
+
+## Key Commands Used
 
 ```bash
-ssh -i key.pem ubuntu@public-ip
+ssh -i ~/cloud-lab-key.pem ubuntu@32.196.229.203
 ```
 
 ```bash
+sudo apt update
+sudo apt install nginx -y
 sudo systemctl status nginx
 ```
 
 ```bash
-sudo ss -tulpn | grep :80
-```
-
-```bash
 curl localhost
-```
-
-```bash
-curl http://public-ip
+curl http://32.196.229.203
 ```
 
 ```bash
 aws ec2 describe-instances
-```
-
-```bash
 aws ec2 describe-security-groups
+aws cloudwatch list-metrics --namespace AWS/EC2
+aws cloudwatch get-metric-statistics
 ```
 
-```bash
-aws cloudwatch list-metrics --namespace AWS/EC2
-```
+---
+
+## Project Documentation
+
+| File                              | Purpose                                             |
+| --------------------------------- | --------------------------------------------------- |
+| infrastructure-inventory.md       | Documents the original EC2 infrastructure inventory |
+| dedicated-vpc-deployment.md       | Documents the dedicated custom VPC deployment       |
+| cloudwatch-monitoring-evidence.md | Documents CloudWatch monitoring verification        |
 
 ---
 
 ## Lessons Learned
 
-* A running EC2 instance does not automatically mean an application is reachable.
-* Security Groups must allow the correct inbound ports.
-* A web server must be running and listening on the expected port.
-* `curl localhost` helps confirm whether the application works locally.
-* `ss -tulpn` helps verify which services are listening.
-* CloudWatch provides visibility into EC2 performance and health.
-* Troubleshooting should be done layer by layer instead of guessing.
+* EC2 instances cannot be directly moved between VPCs.
+* Moving a workload to another VPC requires launching a replacement instance.
+* Security Groups are tied to a specific VPC.
+* A public subnet needs a route to an Internet Gateway.
+* HTTP access requires port 80 to be allowed.
+* SSH should be restricted to a trusted IP address.
+* A deployed server should also be monitored.
+* Cloud engineering work requires both implementation and documentation.
 
 ---
 
-## Cloud Engineering Relevance
+## Project Status
 
-This project reflects real Cloud Support and Cloud Engineering tasks:
+MVP complete.
 
-* Deploying cloud infrastructure
-* Connecting to Linux servers
-* Managing web services
-* Troubleshooting connectivity
-* Understanding AWS networking
-* Reviewing monitoring metrics
-* Documenting technical work clearly
+The project successfully demonstrates:
 
----
+* A working EC2 web server
+* Deployment inside a dedicated custom VPC
+* Public HTTP access
+* Secure SSH access
+* CloudWatch monitoring evidence
+* GitHub documentation
 
-## Status
-
-Project in progress.
-
-Next improvements:
-
-* Add screenshots
-* Add exact EC2 configuration details
-* Add CloudWatch metric examples
-* Add S3 backup or documentation storage step
-* Add final cleanup steps
