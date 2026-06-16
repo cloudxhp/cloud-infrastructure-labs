@@ -60,6 +60,14 @@ CloudWatch Monitoring
 
 ---
 
+## Lab IP Address Note
+
+The public IP address shown in this project is a lab snapshot.
+
+Because this EC2 instance uses an auto-assigned public IPv4 address, the public IP may change if the instance is stopped and started again.
+
+The project remains valid because the documented architecture, deployment process, security group configuration, and monitoring workflow are the main learning outcomes.
+
 ## Security Group Rules
 
 | Rule | Port | Source            | Purpose               |
